@@ -99,23 +99,22 @@ import { MenuItem, FormControl, Select, InputLabel, Box } from '@mui/material';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { SetInfant, SetAdult,SetChildren, SetFlightClass } from '../slices/flightSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const PassengersAndClassSelect = () => {
+  const dispatch =useDispatch()
   const [open, setOpen] = useState(false);
-  const [adultCount, setAdultCount] = useState(1);
-  const [childrenCount, setChildrenCount] = useState(0);
-  const [infantCount, setInfantCount] = useState(0);
-  const [travelClass, setTravelClass] = useState('');
+  const adultCount = useSelector(state => state.flight.adults)
+  const childrenCount = useSelector(state => state.flight.children)
+  const infantCount = useSelector(state => state.flight.infant)
+  const flightClass= useSelector(state => state.flight.flightClass);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const handleIncrement = (setter) => {
-    setter((prev) => prev + 1);
-  }
-  const handleDecrement = (setter) => setter((prev) => Math.max(0, prev - 1));
-
-  const handleClassChange = (event) => setTravelClass(event.target.value);
+  const handleClassChange = (event) => {
+    dispatch(SetFlightClass({flightClass: (event.target.value)}))
+  };
 
   let passengerLabel = `${adultCount} Adult${adultCount > 1 ? 's' : ''}`;
   if(childrenCount >0 && infantCount <1 ){
@@ -148,11 +147,11 @@ const PassengersAndClassSelect = () => {
           <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
             <span>Adult</span>
             <Box display="flex" alignItems="center">
-              <IconButton onClick={() => handleDecrement(setAdultCount)}>
+              <IconButton onClick={() => dispatch(SetAdult({adults:(adultCount-1)}))}>
                 <RemoveIcon />
               </IconButton>
               <span>{adultCount}</span>
-              <IconButton onClick={() => handleIncrement(setAdultCount)}>
+              <IconButton onClick={() => dispatch(SetAdult({adults:(adultCount+1)}))}>
                 <AddIcon />
               </IconButton>
             </Box>
@@ -160,11 +159,11 @@ const PassengersAndClassSelect = () => {
           <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
             <span>Children</span>
             <Box display="flex" alignItems="center">
-              <IconButton onClick={() => handleDecrement(setChildrenCount)}>
+              <IconButton onClick={() => dispatch(SetChildren({children:(childrenCount-1)}))}>
                 <RemoveIcon />
               </IconButton>
               <span>{childrenCount}</span>
-              <IconButton onClick={() => handleIncrement(setChildrenCount)}>
+              <IconButton onClick={() => dispatch(SetChildren({children:(childrenCount + 1)}))}>
                 <AddIcon />
               </IconButton>
             </Box>
@@ -172,11 +171,11 @@ const PassengersAndClassSelect = () => {
           <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
             <span>Infant</span>
             <Box display="flex" alignItems="center">
-              <IconButton onClick={() => handleDecrement(setInfantCount)}>
+              <IconButton onClick={() => dispatch(SetInfant({infant:(infantCount-1)}))}>
                 <RemoveIcon />
               </IconButton>
               <span>{infantCount}</span>
-              <IconButton onClick={() => handleIncrement(setInfantCount)}>
+              <IconButton onClick={() => dispatch(SetInfant({infant:(infantCount+1)}))}>
                 <AddIcon />
               </IconButton>
             </Box>
@@ -185,17 +184,17 @@ const PassengersAndClassSelect = () => {
             <InputLabel id="select-travel-class-label">Travel Class</InputLabel>
             <Select
               labelId="select-travel-class-label"
-              value={travelClass}
+              value={flightClass}
               onChange={handleClassChange}
               label="Travel Class"
             >
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value="Economy">Economy</MenuItem>
-              <MenuItem value="Premium Economy">Premium Economy</MenuItem>
-              <MenuItem value="Business">Business</MenuItem>
-              <MenuItem value="First">First</MenuItem>
+              <MenuItem value="ECONOMY">Economy</MenuItem>
+              <MenuItem value="PREMIUM_ECONOMY">Premium Economy</MenuItem>
+              <MenuItem value="BUSINESS">Business</MenuItem>
+              <MenuItem value="FIRST">First</MenuItem>
             </Select>
           </FormControl>
         </DialogContent>

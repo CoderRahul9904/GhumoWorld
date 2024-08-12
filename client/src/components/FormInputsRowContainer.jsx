@@ -5,9 +5,9 @@ import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { useNavigate } from "react-router-dom";
 import PropTypes, { string } from "prop-types";
-import { fetchedFlight } from "../slices/flightSlice";
+import { fetchedFlight, SetDepartureDate, SetReturnDate } from "../slices/flightSlice";
 import PassengerClassSelector from "./TravellersClass";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const FormInputsRowContainer = ({
   className = "",
   propBorderRadius,
@@ -16,8 +16,8 @@ const FormInputsRowContainer = ({
   onSearchTextClick,
 }) => {
   const dispatch=useDispatch()
-
-
+  const returnDateStatus= useSelector(state => state.flight.returnCheckBox)
+  const ReturnDate= useSelector(state => state.flight.returnDate)
   const [ AirportsData, SetAirportData]=useState([])
   const getAirports = async () => {
     try {
@@ -102,12 +102,14 @@ const FormInputsRowContainer = ({
     console.log(selectOutlinedDateTimePickerValue)
     console.log(selectOutlinedDateTimePickerValue.formattedDate)
     const departureDate = selectOutlinedDateTimePickerValue.formattedDate;
-    console.log(departureDate)
+    console.log("Departure Date from request is"+departureDate)
     try{
+      console.log('Return Date from request is: ' + ReturnDate)
       const response= await axios.post('http://localhost:3000/api/v1/amadeus/flight-offers',{
         originLocationCode: originLocationCode,
         destinationLocationCode: destinationLocationCode,
         departureDate: departureDate,
+        returnDate: ReturnDate,
     })
     console.log(response.data)
     dispatch(fetchedFlight({AvailableFlights: response.data}))
@@ -119,7 +121,7 @@ const FormInputsRowContainer = ({
   }
 
 
-  const handleDatePickerChange = async(newValue)=>{
+  const handleDatePickerChangeOfOneWay = async(newValue)=>{
     const response= await axios.get('http://localhost:3000/api/v1/GhumoWorld/format-date',{
       params:{
         dateObj: newValue
@@ -136,8 +138,24 @@ const FormInputsRowContainer = ({
     console.log("Here is :" + selectOutlinedDateTimePickerValue)
   }
 
-
-
+    const handleDatePickerChangeOfReturn = async(newValue)=>{
+      const response= await axios.get('http://localhost:3000/api/v1/GhumoWorld/format-date',{
+        params:{
+          dateObj: newValue
+        }
+      })
+      if(!response){
+        console.log("Something went wrong")
+      }
+      dispatch(SetReturnDate({returnDate: response.data.formattedDate}))
+    
+      // alert('Please Select Date')
+    }
+    if(returnDateStatus){
+      console.log("Return Date :" + ReturnDate)
+    }
+  
+  
 
   console.log("Arrival Airport : "+selectedArrivalOption)
   console.log("Departure Airport : "+selectedDepartureOption)
@@ -201,7 +219,7 @@ const FormInputsRowContainer = ({
                 label="Departure Date"
                 value={selectOutlinedDateTimePickerValue || "MM-DD-YYYY"}
                 onChange={(newValue) => {
-                  handleDatePickerChange(newValue)
+                  handleDatePickerChangeOfOneWay(newValue)
                 }}
                 sx={{ width: "100%" }}
                 slotProps={{
@@ -231,10 +249,13 @@ const FormInputsRowContainer = ({
           </div>
           <div className="flex-1 flex flex-col items-center justify-center p-[5px] sm:w-full sm:flex-[unset] sm:self-stretch">
             <div className="self-stretch">
-            <DatePicker
+            {returnDateStatus && <DatePicker
               className="self-stretch"
               label="Return Date"
               value={"MM-DD-YYYY"}
+              onChange={(newValue) => {
+                handleDatePickerChangeOfReturn(newValue)
+              }}
               sx={{ width: "100%" }}
               slotProps={{
                 textField: {
@@ -248,7 +269,7 @@ const FormInputsRowContainer = ({
                   placeholder: "Return Date",
                 },
               }}
-            />
+            />}
             </div>
           </div>
           <div className=" flex-1 flex flex-col w-60 items-center justify-center p-[5px] sm:w-full sm:flex-[unset] sm:self-stretch">

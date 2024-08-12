@@ -1,16 +1,21 @@
 import { useCallback } from "react";
-import { Radio, FormControlLabel } from "@mui/material";
+import { Radio, FormControlLabel, Switch  } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import FormInputsRowContainer from "./FormInputsRowContainer";
-
+import { useDispatch, useSelector } from "react-redux";
+import { SetReturnCheckBox } from "../slices/flightSlice";
 import PropTypes from "prop-types";
 import Header from "./Header";
 
 const HeroContainer = ({ className = "" }) => {
 
   const navigate = useNavigate();
-
-
+  const dispatch=useDispatch()
+  const checkReturnStatus=useSelector(state => state.flight.returnCheckBox)
+  console.log(checkReturnStatus)
+  const handleReturnBoxCheck = () =>{
+    dispatch(SetReturnCheckBox({returnCheckBoxValue:!checkReturnStatus}))
+  }
   const onSearchFlightsButtonClick = useCallback(() => {
     navigate("/results-page");
   }, [navigate]);
@@ -42,16 +47,22 @@ const HeroContainer = ({ className = "" }) => {
               <div className="flex flex-row items-center justify-start sm:w-full">
                 <div className="relative w-[216.5px] h-[38px] sm:w-[100%!important]">
                   <FormControlLabel
-                    className="absolute top-[0px] left-[0px]"
+                    className="absolute top-[0px] left-[-20px]"
                     label="Return"
                     labelPlacement="end"
-                    control={<Radio size="medium" />}
+                    onClick={handleReturnBoxCheck}
+                    checked={checkReturnStatus}
+                    // control={<Radio size="medium" />}
+                    control={<Switch defaultChecked />}
                   />
                   <FormControlLabel
-                    className="absolute top-[0px] left-[106px]"
+                    className="absolute top-[0px] left-[85px]"
                     label="One-way"
                     labelPlacement="end"
-                    control={<Radio color="primary" checked size="medium" />}
+                    checked={true}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                    // control={<Radio color="primary" checked size="medium" />}
+                    control={<Switch defaultChecked />}
                   />
                 </div>
               </div>
