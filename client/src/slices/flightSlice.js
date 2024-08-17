@@ -12,7 +12,10 @@ const FlightSlice= createSlice({
                 adults: 1,
                 infant: 0,
                 children: 0,
-                flightClass: 'Not selected Yet'},
+                flightClass: 'Not selected Yet',
+                currencyCode: null,
+                currencySymbol: null,
+            },
     reducers:{
         fetchedFlight(state,action){
             state.AvailableFlights=action.payload.AvailableFlights
@@ -43,6 +46,12 @@ const FlightSlice= createSlice({
         },
         SetFlightClass(state,action){
             state.flightClass=action.payload.flightClass
+        },
+        SetCurrencyCode(state,action){
+            state.currencyCode=action.payload.currencyCode
+        },
+        SetCurrencySymbol(state,action){
+            state.currencySymbol=action.payload.currencySymbol
         }
     }
 })
@@ -57,7 +66,9 @@ export const  { fetchedFlight,
                 SetInfant,
                 SetReturnDate,
                 SetReturnCheckBox,
-                SetFlightClass
+                SetFlightClass,
+                SetCurrencyCode,
+                SetCurrencySymbol
               }=FlightSlice.actions
 
 export default FlightSlice.reducer
