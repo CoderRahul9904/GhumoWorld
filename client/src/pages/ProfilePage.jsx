@@ -12,7 +12,8 @@ import AuthGoogle from '../components/authDropDown';
 function ProfilePage() {
     const dispatch = useDispatch();
     const navigate=useNavigate()
-    const { isLoggedIn, googleToken, userInfo } = useSelector((state) =>state.user)
+    const { isLoggedIn,  userInfo, latitude, longitude } = useSelector((state) =>state.user)
+    console.log("From page "+ latitude, longitude)
 
     const handleLogout = () => {
         googleLogout()
