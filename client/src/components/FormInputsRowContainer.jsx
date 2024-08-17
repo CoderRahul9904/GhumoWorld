@@ -18,6 +18,10 @@ const FormInputsRowContainer = ({
   const dispatch=useDispatch()
   const returnDateStatus= useSelector(state => state.flight.returnCheckBox)
   const ReturnDate= useSelector(state => state.flight.returnDate)
+  const adults= useSelector(state => state.flight.adults)
+  const children=useSelector(state => state.flight.children)
+  const infants=useSelector(state => state.flight.infant)
+  const currencyCode=useSelector(state => state.flight.currencyCode)
   const [ AirportsData, SetAirportData]=useState([])
   const getAirports = async () => {
     try {
@@ -102,6 +106,7 @@ const FormInputsRowContainer = ({
     console.log(selectOutlinedDateTimePickerValue)
     console.log(selectOutlinedDateTimePickerValue.formattedDate)
     const departureDate = selectOutlinedDateTimePickerValue.formattedDate;
+    console.log("Adults : " + adults, "Children : " + children, "Infants :" + infants)
     console.log("Departure Date from request is"+departureDate)
     try{
       console.log('Return Date from request is: ' + ReturnDate)
@@ -110,6 +115,10 @@ const FormInputsRowContainer = ({
         destinationLocationCode: destinationLocationCode,
         departureDate: departureDate,
         returnDate: ReturnDate,
+        adults: adults,
+        children: children,
+        infants: infants,
+        currencyCode: currencyCode,
     })
     console.log(response.data)
     dispatch(fetchedFlight({AvailableFlights: response.data}))

@@ -8,6 +8,7 @@ const FlightCardsContainer = ({ className = "" }) => {
 
   
   const AvailableFlightsData=useSelector((state) => state.flight)
+  const currencySymbol=useSelector(state => state.flight.currencySymbol)
   const AllFlights=AvailableFlightsData.AvailableFlights
   console.log(AllFlights)
 
@@ -72,7 +73,10 @@ const FlightCardsContainer = ({ className = "" }) => {
           const destinationInHourAndMintues=CalculateTotalTimeDurationOfJourney(Array_arrivalTime,Array_departureTime)
           const destinationInHours=destinationInHourAndMintues.destinationInHours
           const destinationInMintues=destinationInHourAndMintues.destinationInMinutes
+          
 
+          //flight Price logic
+          const flightPrice=Math.floor(flight.price.total)
           return (
             
               <FlightInfoContainer
@@ -81,7 +85,7 @@ const FlightCardsContainer = ({ className = "" }) => {
                 departureTime={departureTime}
                 flightDuration={`${destinationInHours}H ${destinationInMintues}M, ${no_of_stops} stop`}
                 arrivalTime={arrivalTime}
-                flightPrice="S$ 900"
+                flightPrice={`${flightPrice} ${currencySymbol}`}
                 iatacodeArrival={iatacodeArrival}
                 iatacodeDeparture={iatacodeDeparture}
               />

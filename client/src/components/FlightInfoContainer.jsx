@@ -48,12 +48,12 @@ const FlightInfoContainer = ({
           <div className="absolute w-full top-[0%] left-[0%] tracking-[0.32px] font-medium inline-block mq428small:text-base">
             {arrivalTime}
           </div>
-          <div className="absolute w-[81.21%] top-[63.46%] left-[17.65%] text-base tracking-[0.26px] text-dimgray-100 inline-block">
+          <div className="absolute w-[81.21%]  top-[63.46%] left-[17.65%] text-base tracking-[0.26px] text-dimgray-100 inline-block">
             {iatacodeArrival}
           </div>
         </div>
       </div>
-      <div className="w-32 flex flex-row items-center sm:bg-orange-50 sm:rounded-lg justify-center text-5xl text-orange-100">
+      <div className="w-36 flex flex-row items-center sm:bg-orange-50 sm:rounded-lg justify-center text-5xl text-orange-100">
         <img
           className="relative max-w-full overflow-hidden h-[100px] sm:hidden"
           alt=""
