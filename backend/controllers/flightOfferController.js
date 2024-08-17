@@ -5,7 +5,7 @@ const axios=require('axios')
 
 
 exports.getFlightOffer=async(req,res)=>{
-    const { originLocationCode,destinationLocationCode,departureDate}=req.body
+    const { originLocationCode,destinationLocationCode,departureDate,adults,children,infants,returnDate, currencyCode}=req.body
     const amadeusToken=req.amadeusToken;
     try{
         const response=await axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers',{
@@ -16,7 +16,12 @@ exports.getFlightOffer=async(req,res)=>{
                 originLocationCode,
                 destinationLocationCode,
                 departureDate,
-                adults: 1,
+                adults,
+                children,
+                infants,
+                children,
+                returnDate,
+                currencyCode
             }
         })
         console.log(response.data)
