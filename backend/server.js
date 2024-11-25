@@ -1,5 +1,5 @@
 const app=require('./app')
-const mongoose=require('./db')
+const {userDB,airportDB}=require('./db')
 const User=require('./models/UserModels')
 
 
