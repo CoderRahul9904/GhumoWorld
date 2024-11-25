@@ -78,7 +78,8 @@ const FlightCardsContainer = ({ className = "" }) => {
           //flight Price logic
           const flightPrice=Math.floor(flight.price.total)
           return (
-            
+            <ul className=" list-none">
+              <li key={id}>
               <FlightInfoContainer
                 flightDetails="/sia.svg"
                 airlineName={airlineName}
@@ -89,7 +90,8 @@ const FlightCardsContainer = ({ className = "" }) => {
                 iatacodeArrival={iatacodeArrival}
                 iatacodeDeparture={iatacodeDeparture}
               />
-            
+              </li>
+            </ul>
          );
       })}
       </div> :
