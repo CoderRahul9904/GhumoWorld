@@ -256,6 +256,11 @@ const FormInputsRowContainer = ({
             </div>
             </button>
           </div>
+          <div className=" flex-1 flex flex-col w-60 items-center justify-center p-[5px] sm:w-full sm:flex-[unset] sm:self-stretch">
+            <div className="self-stretch">
+              <PassengerClassSelector />
+            </div> 
+          </div>
           <div className="flex-1 flex flex-col items-center justify-center p-[5px] sm:w-full sm:flex-[unset] sm:self-stretch">
             <div className="self-stretch">
             {returnDateStatus && <DatePicker
@@ -280,11 +285,6 @@ const FormInputsRowContainer = ({
               }}
             />}
             </div>
-          </div>
-          <div className=" flex-1 flex flex-col w-60 items-center justify-center p-[5px] sm:w-full sm:flex-[unset] sm:self-stretch">
-            <div className="self-stretch">
-              <PassengerClassSelector />
-            </div> 
           </div>
         </div>
       </div>
