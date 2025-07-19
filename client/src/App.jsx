@@ -14,6 +14,7 @@ import ResultsPage from "./pages/ResultsPage";
 import HotelsPage from "./pages/HotelsPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage";
+import TicketPage from "./pages/Ticketpage";
 
 function App() {
   const action = useNavigationType();
@@ -95,6 +96,7 @@ function App() {
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/results-page" element={<ResultsPage />} />
+      <Route path="/ticket-page" element={<TicketPage />} />
       <Route path="/hotels-page" element={<HotelsPage />} />
     </Routes>
   );

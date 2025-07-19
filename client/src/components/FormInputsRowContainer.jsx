@@ -59,22 +59,23 @@ const FormInputsRowContainer = ({
   
   
 
-  useEffect(() => {
-    if(selectedArrivalOption && typeof selectedArrivalOption !== 'string'){
-      localStorage.setItem('selectedArrivalOption', selectedArrivalOption.label);
-    }else if( selectedArrivalOption == null){
-      localStorage.setItem('selectedArrivalOption', '');
-    }
-  }, [selectedArrivalOption]);
+  // useEffect(() => {
+  //   if(selectedArrivalOption && typeof selectedArrivalOption !== 'string'){
+  //     localStorage.setItem('selectedArrivalOption', selectedArrivalOption.label);
+  //   }else if( selectedArrivalOption == null){
+  //     localStorage.setItem('selectedArrivalOption', '');
+  //   }
+  // }, [selectedArrivalOption]);
 
-  useEffect(() => {
-    if(selectedDepartureOption && typeof selectedDepartureOption !== 'string'){
-      localStorage.setItem('selectedDepartureOption', selectedDepartureOption.label);
-    }else if( selectedDepartureOption == null){
-      localStorage.setItem('selectedDepartureOption', '');
-    }
+  // useEffect(() => {
+  //   console.log("Selected Departure Option: ", selectedDepartureOption);
+  //   if(selectedDepartureOption && typeof selectedDepartureOption !== 'string'){
+  //     localStorage.setItem('selectedDepartureOption', selectedDepartureOption.label);
+  //   }else if( selectedDepartureOption == null){
+  //     localStorage.setItem('selectedDepartureOption', '');
+  //   }
     
-  }, [selectedDepartureOption]);
+  // }, [selectedDepartureOption]);
 
 
   const [
@@ -96,10 +97,10 @@ const FormInputsRowContainer = ({
 
   const onSearchFlightsButtonClick = async () => {
     
-    const originLocationCode = selectedDepartureOption.match(/\(([^)]+)\)/)[1];
+    const originLocationCode = selectedDepartureOption.label.match(/\(([^)]+)\)/)[1];
     console.log(originLocationCode)
 
-    const destinationLocationCode= selectedArrivalOption.match(/\(([^)]+)\)/)[1];
+    const destinationLocationCode= selectedArrivalOption.label.match(/\(([^)]+)\)/)[1];
     console.log(destinationLocationCode)
     
 

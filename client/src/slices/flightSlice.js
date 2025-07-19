@@ -6,7 +6,7 @@ const FlightSlice= createSlice({
                 AvailableFlights: null,
                 departureCode: null,
                 arrivalCode:null,
-                returnCheckBox: false,
+                returnCheckBox: true,
                 departureDate: null,
                 returnDate: null,
                 adults: 1,

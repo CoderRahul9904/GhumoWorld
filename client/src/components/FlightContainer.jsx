@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,8 +16,15 @@ const FlightContainer = ({
   iatacodeArrival,
   iatacodeDeparture,
 }) => {
+
+  const navigate = useNavigate();
+  const showTicketDetails = (flightDetails, airlineName, departureTime, flightDuration, arrivalTime, flightPrice, iatacodeArrival, iatacodeDeparture) => {
+    navigate("/ticket-page")
+  }
   return (
     <div
+      typeof="button"
+      onClick={() => showTicketDetails(flightDetails, airlineName, departureTime, flightDuration, arrivalTime, flightPrice, iatacodeArrival, iatacodeDeparture)}
       className={`self-stretch rounded-md bg-white flex flex-row hover:bg-blue-200 items-center justify-center py-0 px-[25px] gap-[50px] text-left text-base text-dimgray-200 font-roboto sm:flex-col sm:py-5 sm:px-0 sm:box-border ${className}`}
     >
       <div className="w-1/5 flex flex-row items-center justify-start gap-[7px] md:flex-col sm:flex-row sm:w-[100%!important] sm:ml-10">
