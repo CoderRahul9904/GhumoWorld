@@ -6,7 +6,9 @@ const AirportsRoute = require('./routes/AirportsRoute');
 const FormatDateRoute=require('./routes/FormatDateRoute')
 
 const dotenv = require('dotenv');
-dotenv.config({ path: '../client/configure.env' });
+dotenv.config({ path: './configure.env' });
+
+console.log(process.env.DB);
 
 const cors = require('cors');
 
