@@ -10,7 +10,6 @@ let TokenExpiringTime=null;
 
 const GetAmadeusToken= async() =>{
     try{
-        
         if(!amadeusToken || Date.now()>TokenExpiringTime){
             const requestBody = qs.stringify({
                 grant_type: 'client_credentials',
