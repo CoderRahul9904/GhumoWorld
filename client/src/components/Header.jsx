@@ -6,6 +6,7 @@ import AuthGoogle from "./authDropDown"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { login } from "../slices/UserSlice";
+import api from "../utils/api";
 
 const Header = ({ className = "", bgColor,textColor }) => {
 
@@ -16,7 +17,7 @@ const Header = ({ className = "", bgColor,textColor }) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/GhumoWorld/profile', {
+        const response = await api.get('/api/v1/GhumoWorld/profile', {
           headers: {
             Authorization: `Bearer ${googleToken}`,
           },

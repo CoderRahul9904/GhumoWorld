@@ -8,6 +8,7 @@ import PropTypes, { string } from "prop-types";
 import { fetchedFlight, SetDepartureDate, SetReturnDate } from "../slices/flightSlice";
 import PassengerClassSelector from "./TravellersClass";
 import { useDispatch, useSelector } from "react-redux";
+import api from "../utils/api";
 const FormInputsRowContainer = ({
   className = "",
   propBorderRadius,
@@ -25,7 +26,7 @@ const FormInputsRowContainer = ({
   const [ AirportsData, SetAirportData]=useState([])
   const getAirports = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/GhumoWorld/airports/get-airports');
+      const response = await api.get('/api/v1/GhumoWorld/airports/get-airports');
       SetAirportData(response.data.response)
     } catch (err) {
       console.error('Error fetching airports:', err);
@@ -111,7 +112,7 @@ const FormInputsRowContainer = ({
     console.log("Departure Date from request is"+departureDate)
     try{
       console.log('Return Date from request is: ' + ReturnDate)
-      const response= await axios.post('http://localhost:3000/api/v1/amadeus/flight-offers',{
+      const response= await api.post('/api/v1/amadeus/flight-offers',{
         originLocationCode: originLocationCode,
         destinationLocationCode: destinationLocationCode,
         departureDate: departureDate,
@@ -133,7 +134,7 @@ const FormInputsRowContainer = ({
 
 
   const handleDatePickerChangeOfOneWay = async(newValue)=>{
-    const response= await axios.get('http://localhost:3000/api/v1/GhumoWorld/format-date',{
+    const response= await api.get('/api/v1/GhumoWorld/format-date',{
       params:{
         dateObj: newValue
       }
@@ -150,7 +151,7 @@ const FormInputsRowContainer = ({
   }
 
     const handleDatePickerChangeOfReturn = async(newValue)=>{
-      const response= await axios.get('http://localhost:3000/api/v1/GhumoWorld/format-date',{
+      const response= await api.get('/api/v1/GhumoWorld/format-date',{
         params:{
           dateObj: newValue
         }
