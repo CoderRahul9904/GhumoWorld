@@ -5,15 +5,17 @@ const AmadeusRoute = require('./routes/AmadeusRoute');
 const AirportsRoute = require('./routes/AirportsRoute'); 
 const FormatDateRoute=require('./routes/FormatDateRoute')
 
-const dotenv = require('dotenv');
-dotenv.config({ path: './configure.env' });
-
-console.log(process.env.DB);
 
 const cors = require('cors');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*' }));
+app.options('*', cors());
+
+app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+  next();
+});
 
 app.use('/api/v1/GhumoWorld', AuthRoute);
 app.use('/api/v1/GhumoWorld', FormatDateRoute);
