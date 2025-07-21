@@ -34,7 +34,8 @@ const Header = ({ className = "", bgColor,textColor }) => {
   
   if( bgColor== " "){
     bgColor="transparent"
-  }else{
+  }
+  else{
     bgColor="bg-white h-[77px]"
   }
   const navigate = useNavigate();

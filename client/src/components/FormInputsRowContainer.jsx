@@ -124,7 +124,8 @@ const FormInputsRowContainer = ({
     console.log(response.data)
     dispatch(fetchedFlight({AvailableFlights: response.data}))
     }catch(err){
-      console.error('Error fetching flight offers:', err.message);
+      
+      console.error('Error fetching flight offers:', err);
     }
     
     navigate("/results-page");
